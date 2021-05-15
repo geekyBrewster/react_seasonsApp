@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+//import SeasonDisplay from './components/SeasonDisplay'
+
+class App extends React.Component {
+  render() {
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {console.log(position)},
+      (err) => {console.log(err)}
+    );
+
+    return <div>Latitude: </div>;
+  }
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <App />,
+  document.querySelector('#root')
 );
