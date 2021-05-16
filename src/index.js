@@ -4,7 +4,6 @@ import SeasonDisplay from './components/SeasonDisplay';
 import Spinner from './components/Spinner';
 
 class App extends React.Component {
-
   // constructor(props){
   //   super(props);
 
@@ -37,18 +36,26 @@ class App extends React.Component {
     console.log('Component was updated and re-rendered');
   }
 
+  renderContent() {
+    if (this.state.errorMessage && !this.state.latitude){
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+
+    if (!this.state.errorMessage && this.state.latitude){
+      return <SeasonDisplay latitude = {this.state.latitude} />;
+    }
+
+    return <Spinner message="Fetching location..."/>;
+  }
+
   //Render gets called all the dang time, so don't add requests, calls, etc.
   //Ideally, render should only be used to return some JSX
   render() {
-      if (this.state.errorMessage && !this.state.latitude){
-        return <div>Error: {this.state.errorMessage}</div>;
-      }
-
-      if (!this.state.errorMessage && this.state.latitude){
-        return <SeasonDisplay latitude = {this.state.latitude} />;
-      }
-
-      return <Spinner message="Fetching location..."/>;
+    return (
+      <div>
+        {this.renderContent()}
+      </div>
+    );
   };
 
 };
