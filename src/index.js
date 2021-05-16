@@ -15,22 +15,34 @@ class App extends React.Component {
         //setState is always used to change state's value!!
         this.setState({ 
           latitude: position.coords.latitude, 
-          longitude: position.coords.longitude 
+          longitude: position.coords.longitude,
+          errorMessage: ''
         }); 
       },
-      err => {console.log(err)}
+      err => {
+        this.setState({ errorMessage: err.message });
+      }
     );
   };
 
   //Render gets called all the dang time, so don't add requests, calls, etc.
   render() {
-    return (
-      <div>
-        <div>Latitude: {this.state.latitude}</div>
-        <div>Longitude: {this.state.longitude}</div>
-      </div>
-    );
-  }
+      if (this.state.errorMessage && (!this.state.latitude && !this.state.longitude)){
+        return <div>{this.state.errorMessage}</div>;
+      }
+
+      if (!this.state.errorMessage && (this.state.latitude && this.state.longitude)){
+        return (
+          <div>
+            <div>Latitude: {this.state.latitude}</div>
+            <div>Longitude: {this.state.longitude}</div>
+          </div>
+        );
+      }
+
+      return <div>Loading...</div>;
+  };
+
 }
 
 ReactDOM.render(
