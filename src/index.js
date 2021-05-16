@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './components/SeasonDisplay';
-
+import Spinner from './components/Spinner';
 
 class App extends React.Component {
 
@@ -48,10 +48,10 @@ class App extends React.Component {
         return <SeasonDisplay latitude = {this.state.latitude} />;
       }
 
-      return <div>Loading...</div>;
+      return <Spinner message="Fetching location..."/>;
   };
 
-}
+};
 
 ReactDOM.render(
   <App />,
