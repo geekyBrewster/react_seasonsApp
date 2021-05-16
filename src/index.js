@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import SeasonDisplay from './components/SeasonDisplay'
+import SeasonDisplay from './components/SeasonDisplay';
+
 
 class App extends React.Component {
 
@@ -39,17 +40,12 @@ class App extends React.Component {
   //Render gets called all the dang time, so don't add requests, calls, etc.
   //Ideally, render should only be used to return some JSX
   render() {
-      if (this.state.errorMessage && (!this.state.latitude && !this.state.longitude)){
+      if (this.state.errorMessage && !this.state.latitude){
         return <div>Error: {this.state.errorMessage}</div>;
       }
 
-      if (!this.state.errorMessage && (this.state.latitude && this.state.longitude)){
-        return (
-          <div>
-            <div>Latitude: {this.state.latitude}</div>
-            <div>Longitude: {this.state.longitude}</div>
-          </div>
-        );
+      if (!this.state.errorMessage && this.state.latitude){
+        return <SeasonDisplay latitude = {this.state.latitude} />;
       }
 
       return <div>Loading...</div>;
